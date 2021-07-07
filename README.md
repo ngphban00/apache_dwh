@@ -1,4 +1,61 @@
-# Apache DWH - Ansible
+# Repo structure
+```
+.
+├── README.md
+├── downloads
+│   ├── apache-hive-2.3.2-bin.tar.gz
+│   ├── apache-nutch-1.18-bin.tar.gz
+│   ├── geckodriver-v0.29.1-linux64.tar.gz
+│   ├── hadoop-2.7.1.tar.gz
+│   ├── hbase-1.2.6-bin.tar.gz
+│   ├── scala-2.12.4.tgz
+│   ├── solr-8.5.1.tgz
+│   └── spark-2.2.1-bin-hadoop2.7.tgz
+├── key_deploy
+├── key_root
+└── src
+    ├── LICENSE
+    ├── ansible.cfg
+    ├── hbase.yml
+    ├── hive.yml
+    ├── hosts
+    ├── master.yml
+    ├── nutch.yml
+    ├── roles
+    ├── spark.yml
+    ├── vars
+    └── workers.yml
+```
+## Description
+1. downloads: All binaries required for installation
+IMPORTANT: Read GIT LFS note in the following section!
+2. key_deploy: Replace it with your own SSH key (the key you have to SSH to the remote servers)
+3. src: Ansible playbooks to install the whole Apache Datawarehouse platform
+
+# GIT-LFS
+1. Install git-lfs
+If you're using GitBash (Windows), open GitBash windows, type below command:
+```
+git lfs install
+```
+If you're using Git for Linux (Ubuntu/Debian), open a terminal, type below commands:
+```
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get install git-lfs
+git lfs install
+```
+2. git-lfs pull
+In your terminal (or GitBash window), type below commands
+```
+cd downloads
+git lfs fetch
+git lfs pull
+```
+3. Why you have to do that?
+The tarballs in the download folder are huge. They were uploaded onto Git Large File System on Github!
+In order to save your bandwidth, they should be available offline first in download folder.
+
+# Software to be installed
 - OS: Centos 7.x
 - JDK:Openjdk-1.8
 - Hadoop: 3.0.0
@@ -15,7 +72,7 @@
 See host defined in hosts/host
 
 # How to install
-## Install ansible. See instruction here[https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html]
+## Install ansible. See instruction [here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 ## Check out this source code
 ```
 git clone https://github.com/ngphban/apache-dwh.git
@@ -456,7 +513,9 @@ firewall_ports:
 172.16.251.72
 
 ```
-3. zookeeper Install later [zookeeper-ansible](https://gitee.com/pippozq/zookeeper-ansible)
+3. zookeeper 
+Install later
+
 4.  hbase.yml
 
 ```
