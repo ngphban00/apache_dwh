@@ -1,0 +1,16 @@
+- hosts: hive 
+  become: yes
+  vars_files:
+   - vars/user.yml
+   - vars/var_basic.yml
+   - vars/var_master.yml
+   - vars/var_hive.yml
+   - vars/var_postgres.yml
+  vars:
+     open_firewall: false
+     install_hive: true
+     config_hive: true
+     init_hive: true
+  roles:
+    - postgres
+    - hive

@@ -1,0 +1,11 @@
+---
+- name: Copy Geckodriver
+  copy: src={{ download_path }}/geckodriver-{{ geckodriver_version }}-linux64.tar.gz dest=/tmp owner={{ geckodriver_user }} mode=755
+  
+- name: Unzip Geckodriver
+  unarchive: 
+    src: /tmp/geckodriver-{{ geckodriver_version }}-linux64.tar.gz
+    dest: "{{ geckodriver_path }}"
+    owner: "{{ geckodriver_user }}"
+    group: "{{ geckodriver_group }}"
+    remote_src: yes

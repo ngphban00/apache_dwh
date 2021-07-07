@@ -1,0 +1,5 @@
+- name: Enable crawling base64 content
+  replace:
+    path: "{{ nutch_path }}/apache-nutch-{{nutch_version}}/bin/crawl"
+    regexp: "crawldb -linkdb"
+    replace: "crawldb -addBinaryContent -base64 -linkdb"

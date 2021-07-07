@@ -1,0 +1,23 @@
+- name: Create urls store place
+  file:
+    path: "{{ nutch_path }}/apache-nutch-{{ nutch_version }}/urls"
+    state: directory
+    owner: "{{ nutch_user }}"
+    group: "{{ nutch_group }}"
+    mode: '0755'
+
+- name: Add seed file
+  copy:
+    src: seed.txt
+    dest: "{{ nutch_path }}/apache-nutch-{{ nutch_version }}/urls"
+    owner: "{{ nutch_user }}"
+    group: "{{ nutch_group }}"
+    mode: '0755'
+
+- name: Create crawl data store
+  file:
+    path: "{{ nutch_path }}/apache-nutch-{{ nutch_version }}/crawl"
+    state: directory
+    owner: "{{ nutch_user }}"
+    group: "{{ nutch_group }}"
+    mode: '0755'

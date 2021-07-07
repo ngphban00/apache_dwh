@@ -1,0 +1,7 @@
+nodes:
+  - hostname: hadoop-master
+    ip: 45.32.119.181 
+  - hostname: hadoop-worker01
+    ip: 45.32.101.71
+  - hostname: hadoop-worker02
+    ip: 45.77.41.249 

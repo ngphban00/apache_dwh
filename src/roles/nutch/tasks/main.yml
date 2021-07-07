@@ -1,0 +1,9 @@
+---
+- include: install-common.yml
+- include: configure-xvfb.yml
+- include: install-geckodriver.yml
+- include: install-nutch.yml
+- include: configure-nutch.yml
+- include: add-urls.yml
+- include: crawl-base64.yml
+- include: create-cronjob.yml

@@ -1,0 +1,36 @@
+hadoop-master  ansible_host=45.32.119.181 ansible_hostname=hadoop-master
+hadoop-worker01 ansible_host=45.32.101.71 ansible_hostname=hadoop-worker01
+hadoop-worker02 ansible_host=45.77.41.249 ansible_hostname=hadoop-worker02
+
+[all:vars]
+ansible_connection = ssh  
+ansible_ssh_user = deploy 
+ansible_ssh_private_key_file = ../key_deploy
+
+[hadoop-masters]
+hadoop-master
+
+[hadoop-workers]
+hadoop-worker01
+hadoop-worker02
+
+[hive]
+hadoop-master
+
+[hbase]
+hadoop-master
+hadoop-worker01
+hadoop-worker02
+
+[zookeeper]
+hadoop-master
+hadoop-worker01
+hadoop-worker02
+
+[spark]
+hadoop-master
+hadoop-worker01
+hadoop-worker02
+
+[nutch]
+hadoop-worker01

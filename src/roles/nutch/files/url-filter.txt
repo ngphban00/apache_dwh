@@ -1,0 +1,5 @@
++^https?://([a-z0-9-]+\.)*cafef\.vn/
++^https?://([a-z0-9-]+\.)*propzy\.vn/
++^https?://([a-z0-9-]+\.)*batdongsan\.com\.vn/
++^https?://([a-z0-9-]+\.)*cafeland\.vn/
++^https?://([a-z0-9-]+\.)*www\.gachvang\.com/

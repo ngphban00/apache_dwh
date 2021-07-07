@@ -1,0 +1,22 @@
+- hosts: hadoop-masters 
+  become: yes
+  vars_files:
+   - vars/user.yml
+   - vars/var_basic.yml
+   - vars/var_master.yml
+   - vars/nodes.yml
+  vars:
+     add_user: true
+     generate_key: true
+     open_firewall: false
+     disable_firewall: false
+     install_hadoop: true
+     config_hadoop: true
+     add_known_hosts: true
+  roles:
+    - user
+    - fetch_public_key
+    - authorized
+    - java
+    - hadoop
+    - solr

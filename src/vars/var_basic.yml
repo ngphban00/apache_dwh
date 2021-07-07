@@ -1,0 +1,111 @@
+---
+# java version
+jvm_home: "/usr/lib/jvm"
+java_packages:
+ - "java-1.8.0-openjdk"
+ - "java-1.8.0-openjdk-devel"
+
+# hadoop master ip
+master_ip: "45.32.119.181"
+master_hostname: "hadoop-master"
+
+# hadoop basic vars
+download_path: "../downloads"
+hadoop_version: "2.7.1"
+hadoop_path: "/home/hadoop"
+hadoop_config_path: "/home/hadoop/hadoop-{{hadoop_version}}/etc/hadoop"
+hadoop_tmp: "/home/hadoop/tmp"
+hadoop_dfs_name: "/home/hadoop/hadoop-data/hdfs/namenode"
+hadoop_dfs_data: "/home/hadoop/hadoop-data/hdfs/datanode"
+hadoop_log_path: "/home/hadoop/hadoop_logs"
+
+hadoop_create_path:
+  - "{{ hadoop_tmp }}"
+  - "{{ hadoop_dfs_name }}"
+  - "{{ hadoop_dfs_data }}"
+  - "{{ hadoop_log_path }}"
+
+
+# hadoop configration
+hdfs_port: 54310
+core_site_properties:
+  - {
+      "name":"fs.default.name",
+      "value":"hdfs://{{ master_hostname }}:{{ hdfs_port }}"
+  }
+  - {
+      "name":"hadoop.tmp.dir",
+      "value":"{{ hadoop_tmp }}"
+  }
+
+hdfs_site_properties:
+  - {
+      "name":"dfs.permissions",
+      "value":"false"
+  }
+  - {
+      "name":"dfs.namenode.name.dir",
+      "value":"file:{{ hadoop_dfs_name }}"
+  }
+  - {
+      "name":"dfs.namenode.data.dir",
+      "value":"file:{{ hadoop_dfs_data }}"
+  }
+  - {
+      "name":"dfs.replication",
+      "value":"{{ groups['hadoop-workers']|length }}"
+  }
+
+mapred_site_properties:
+ - {
+   "name": "mapreduce.framework.name",
+   "value": "yarn"
+ }
+ - {
+   "name": "mapred.job.tracker",
+   "value": "{{ master_hostname }}:54311"
+ }
+
+yarn_resourcemanager_port: 8032
+yarn_resourcemanager_scheduler_port: 8030
+yarn_resourcemanager_webapp_port: 8088
+yarn_resourcemanager_tracker_port: 8031
+yarn_resourcemanager_admin_port: 8033
+
+yarn_site_properties:
+  - {
+    "name": "yarn.nodemanager.aux-services",
+    "value": "mapreduce_shuffle"
+  }
+  - {
+    "name": "yarn.resourcemanager.scheduler.address",
+    "value": "{{ master_hostname }}:{{ yarn_resourcemanager_scheduler_port }} "
+  }
+  - {
+    "name": "yarn.resourcemanager.address",
+    "value": "{{ master_hostname }}:{{ yarn_resourcemanager_port }} "
+  }
+  - {
+    "name": "yarn.resourcemanager.webapp.address",
+    "value": "{{ master_hostname }}:{{ yarn_resourcemanager_webapp_port }} "
+  }
+  - {
+    "name": "yarn.resourcemanager.resource-tracker.address",
+    "value": "{{ master_hostname }}:{{ yarn_resourcemanager_tracker_port }} "
+  }
+  - {
+    "name": "yarn.resourcemanager.admin.address",
+    "value": "{{ master_hostname }}:{{ yarn_resourcemanager_admin_port }} "
+  }
+
+
+dashbord_port: 50070
+firewall_ports:
+  - "{{ dashbord_port}}"
+  - "{{ hdfs_port }}"
+  - "{{ dfs_namenode_httpport }}"
+  - "{{ yarn_resourcemanager_port }}"
+  - "{{ yarn_resourcemanager_scheduler_port }}"
+  - "{{ yarn_resourcemanager_webapp_port }}"
+  - "{{ yarn_resourcemanager_tracker_port }}"
+  - "{{ yarn_resourcemanager_admin_port }}"

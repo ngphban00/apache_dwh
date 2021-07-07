@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+{% for item in nutch_site_properties %}
+  <property>
+    <name>{{ item.name }}</name>
+    <value>{{ item.value }}</value>
+  </property>
+{% endfor %}
+</configuration>

@@ -1,0 +1,17 @@
+---
+- name: Ensure no managed schema for Nutch
+  file:
+    dest: "{{ solr_home }}/data/nutch/conf/managed-schema"
+    state: absent
+
+- name: Add Nutch schema
+  copy:
+    src: schema.xml
+    dest: "{{ solr_home }}/data/nutch/conf/schema.xml"
+
+- name: Add Nutch config
+  copy:
+    src: solrconfig.xml
+    dest: "{{ solr_home }}/data/nutch/conf/solrconfig.xml"
+  notify: restart solr
+

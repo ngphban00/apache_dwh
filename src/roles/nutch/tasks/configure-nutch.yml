@@ -1,0 +1,12 @@
+---
+- name: Copy Nutch site config
+  template: src=nutch-site.xml dest={{ nutch_config_path }} mode=644 owner={{ nutch_user }} group = {{ nutch_group }}
+
+- name: Edit index-writers config
+  replace:
+    path: "{{ nutch_config_path }}/index-writers.xml"
+    regexp: "localhost:8983"
+    replace: "hadoop-master:8983"
+
+- name: Copy Nutch url regex config
+  template: src=regex-urlfilter.txt dest={{ nutch_config_path }} mode=644 owner={{ nutch_user }} group = {{ nutch_group }}

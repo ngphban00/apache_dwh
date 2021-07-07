@@ -1,0 +1,12 @@
+- name: Build hosts file
+  lineinfile: 
+    dest: /etc/hosts 
+    regexp: '{{ item.ip }}' 
+    line: "{{ item.ip }} {{ item.hostname }}" 
+    state: present
+  with_items: "{{ nodes }}"
+
+- lineinfile: 
+    dest: /etc/hosts 
+    regexp: '127.0.1.1' 
+    state: absent

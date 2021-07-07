@@ -1,0 +1,45 @@
+---
+# Common
+download_path: "../downloads"
+
+# Nutch
+nutch_common:
+  - "firefox"
+  - "xorg-x11-server-Xorg"
+  - "xorg-x11-server-utils"
+  - "xorg-x11-server-common"
+  - "xorg-x11-server-Xvfb"
+  - "xorg-x11-drv-synaptics"
+  - "xorg-x11-fonts-cyrillic"
+  - "xorg-x11-fonts-75dpi"
+  - "xorg-x11-fonts-100dpi"
+  - "freeglut"
+  - "dbus-x11"
+  - "libXrender"
+  - "gdk-pixbuf2"
+  - "librsvg2"
+
+nutch_user: "root"
+nutch_group: "root"
+nutch_version: "1.18"
+nutch_path: "/opt"
+nutch_config_path: "{{ nutch_path }}/apache-nutch-{{nutch_version}}/conf"
+nutch_site_properties:
+  - {
+      "name":"http.agent.name",
+      "value":"My Nutch Spider"
+  }
+  - {
+      "name":"plugin.includes",
+      "value":"protocol-(selenium|http)|urlfilter-(regex|validator)|parse-(html|tika)|index-(basic|anchor)|indexer-solr|scoring-opic|urlnormalizer-(pass|regex|basic)"
+  }
+
+# nutch_url_regex: "{{ lookup('file', '~/hadoop_full/src/roles/nutch/files/url-filter.txt').splitlines() }}"
+
+nutch_url_regex: "{{ lookup('file', '{{ role_path }}/files/url-filter.txt').splitlines() }}"
+
+# Geckodriver 
+geckodriver_version: "v0.29.1"
+geckodriver_path: "/root"
+geckodriver_user: "root"
+geckodriver_group: "root"

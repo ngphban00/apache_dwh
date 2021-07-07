@@ -1,0 +1,37 @@
+---
+- name: Remove existing SOLR_HEAP configuration.
+  lineinfile:
+    dest: "{{ solr_config_file }}"
+    regexp: "^SOLR_HEAP"
+    state: absent
+  notify: restart solr
+
+- name: Apply Solr configuration changes.
+  lineinfile:
+    dest: "{{ solr_config_file }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    mode: 0644
+  with_items:
+    - regexp: "^.?SOLR_JAVA_MEM="
+      line: 'SOLR_JAVA_MEM="-Xms{{ solr_xms }} -Xmx{{ solr_xmx }}"'
+    - regexp: "^SOLR_PORT="
+      line: 'SOLR_PORT="{{ solr_port }}"'
+    - regexp: "^.?SOLR_TIMEZONE="
+      line: 'SOLR_TIMEZONE="{{ solr_timezone }}"'
+  notify: restart solr
+
+# - name: Remove existing SOLR_OPTS configurations
+#   lineinfile:
+#     dest: "{{ solr_config_file }}"
+#     regexp: "^#SOLR_OPTS"
+#     state: absent
+#   notify: restart solr
+
+# - name: Add new SOLR_OPTS configuration
+#   lineinfile:
+#     dest: "{{ solr_config_file }}"
+#     line: 'SOLR_OPTS="$SOLR_OPTS -Dsolr.directoryFactory=HdfsDirectoryFactory -Dsolr.lock.type=hdfs -Dsolr.hdfs.home=hdfs://{{ master_hostname }}:{{ hdfs_port }}/user/solr"'
+#     state: present
+#   notify: restart solr

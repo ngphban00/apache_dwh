@@ -1,0 +1,12 @@
+---
+- name: Add crawling script for crontab
+  template: src=crawl-job.sh dest={{ nutch_config_path }} mode=755 owner={{ nutch_user }} group = {{ nutch_group }}
+
+- name: Set Nutch cronjob
+  cron:
+    name: "Hourly crawling job"
+    special_time: daily
+    # hour: "10"
+    # minute: "45"
+    user: root
+    job: "{{ nutch_config_path }}/crawl-job.sh"

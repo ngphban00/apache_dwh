@@ -1,0 +1,11 @@
+---
+- name: Copy Nutch
+  copy: src={{ download_path }}/apache-nutch-{{nutch_version}}-bin.tar.gz dest=/tmp owner={{ nutch_user }} mode=755
+  
+- name: Unzip Nutch
+  unarchive: 
+    src: /tmp/apache-nutch-{{nutch_version}}-bin.tar.gz
+    dest: "{{ nutch_path }}"
+    owner: "{{ nutch_user }}"
+    group: "{{ nutch_group }}"
+    remote_src: yes

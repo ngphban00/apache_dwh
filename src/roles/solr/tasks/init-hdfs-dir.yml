@@ -1,0 +1,14 @@
+---
+- name: Create HDFS directory
+  become_user: hadoop
+  become_method: su
+  shell: "hadoop fs -mkdir -p {{ item }}"
+  with_items:
+    - "/user/solr"
+    
+- name: Change Authority
+  become_user: hadoop
+  become_method: su
+  shell: "hadoop fs -chmod -R 777 {{ item }}"
+  with_items:
+    - "/user/solr"

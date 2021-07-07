@@ -1,0 +1,6 @@
+---
+db_user: hive_user
+db_name: hive
+db_password: nfsetso12fdds9s
+db_host: "{{ master_ip }}"
+db_port: 5432

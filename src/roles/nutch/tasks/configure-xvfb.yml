@@ -1,0 +1,16 @@
+---
+- name: Install xvfb systemd service
+  copy:
+    src: xvfb.service
+    dest: /etc/systemd/system
+    owner: "{{ nutch_user }}"
+    group: "{{ nutch_group }}"
+    mode: '0755'
+
+- name: Start xvfb service
+  systemd:
+    name: xvfb 
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    

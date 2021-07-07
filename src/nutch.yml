@@ -1,0 +1,8 @@
+
+# Nuch install
+- hosts: nutch
+  become: yes
+  vars_files:
+   - vars/var_nutch.yml
+  roles:
+    - nutch

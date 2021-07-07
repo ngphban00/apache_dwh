@@ -1,0 +1,6 @@
+---
+- name: Init Hadoop
+  shell: su - {{ user }} -c "hdfs namenode -format && start-dfs.sh"
+  args:
+    chdir: "{{ hadoop_path }}/hadoop-{{ hadoop_version }}"
+    creates: /tmp/hadoop_init
