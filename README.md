@@ -77,12 +77,15 @@ See host defined in hosts/host
 ```
 git clone https://github.com/ngphban/apache-dwh.git
 ```
+## Replace key_deploy with your own SSH key
+## Set permissions on the deploy key
+```
+chmod 600 key_deploy
+```
 ## Go over src folder: 
 ```
 cd src/
 ```
-## Replace key_deploy with your own SSH key
-## Follow below installation commands step-by-step
 
 ## Install Hadoop
 1. Download Hadoop
@@ -280,20 +283,20 @@ ansible-playbook -i hosts/host master.yml
     - hadoop
 
 ```
-Command:
+Note:
 
 ```
 master_ip:  your hadoop master ip
 master_hostname: your hadoop master hostname
 
 above two variables must be same like your real hadoop master
-
+```
+Command
+```
 ansible-playbook -i hosts/host workers.yml -e "master_ip=45.32.119.181 master_hostname=hadoop-master"
-
 ```
 ### Post HDFS install
-1. On Master node:
-```
+1. On Master node:  
 Command
 ```
 sudo su - hadoop
@@ -302,11 +305,10 @@ hdfs namenode -format # RUN ONLY ONCE!!
 start-dfs.sh
 jps # CHECK ON MASTER AND WORKERS NODES
 ```
-Check URL: http://hadoop-master:50070/
-```
+Check URL: http://hadoop-master:50070/  
 
 ### Install hive
-1. **Create a database and give the correct permissions**
+1. __Default database is Posgres. You may create another database and give the correct permissions__
 2.  vars/var_hive.yml
 ```
 ---
@@ -413,17 +415,18 @@ ansible-playbook -i hosts/host hive.yml
 ```
 
 5. Hive post install
-```
 On Master node:
+```
 sudo su - hadoop
 cd $HIVE_HOME/bin
 hive
 ```
 Test creating query:
+```
 CREATE TABLE demo (id int, name string);
 SHOW TABLES;
 DROP TABLE demo;
-
+```
 ### Hbase
 
 1.  vars/var_hbase.yml
@@ -514,7 +517,7 @@ firewall_ports:
 
 ```
 3. zookeeper 
-Install later
+__Install later__
 
 4.  hbase.yml
 
@@ -536,7 +539,7 @@ Install later
 5. Command
 
 ```
-ansible-playbook -i hosts/host  hbase.yml
+ansible-playbook -i hosts/host hbase.yml
 
 ```
 
@@ -636,22 +639,24 @@ firewall_ports:
 
 ```
 5. Command
-
+Note
 ```
 master_hostname ： your master hostname
-ansible-playbook -i hosts/host  spark.yml -e "master_hostname=hadoop-master"
-
-### Install Nutch
 ```
+```
+ansible-playbook -i hosts/host  spark.yml -e "master_hostname=hadoop-master"
+```
+### Install Nutch
 1. Add variable in vars/var_nutch.yml
 2. Add crawled URL in files/seed.txt
 3. Add URL regext in files/url-filter.txt
-6. Add crawling host in hosts/host
+4. Add crawling host in hosts/host
 ```
 [nutch]
 hadoop-worker01
 ```
 5. Command
+```
 ansible-playbook -i hosts/host nutch.yml 
 
 ```
