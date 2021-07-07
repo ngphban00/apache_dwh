@@ -27,13 +27,13 @@
     └── workers.yml
 ```
 ## Description
-1. downloads: All binaries required for installation
-IMPORTANT: Read GIT LFS note in the following section!
+1. downloads: All binaries required for installation  
+IMPORTANT: Read GIT LFS note in the following section!  
 2. key_deploy: Replace it with your own SSH key (the key you have to SSH to the remote servers)
 3. src: Ansible playbooks to install the whole Apache Datawarehouse platform
 
 # GIT-LFS
-1. Install git-lfs
+1. Install git-lfs  
 If you're using GitBash (Windows), open GitBash windows, type below command:
 ```
 git lfs install
@@ -51,7 +51,7 @@ cd downloads
 git lfs fetch
 git lfs pull
 ```
-3. Why you have to do that?
+3. Why you have to do that?  
 The tarballs in the download folder are huge. They were uploaded onto Git Large File System on Github!
 In order to save your bandwidth, they should be available offline first in download folder.
 
