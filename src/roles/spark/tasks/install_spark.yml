@@ -3,8 +3,14 @@
 - name: Unzip Spark
   unarchive: src={{ download_path }}/{{ spark_package_name }}.tgz dest={{ spark_path }} owner={{ user }} group={{ group }} mode=755 
 
+- name: Check if spark version folder exists
+  stat:
+    path: "{{ spark_path }}/spark-{{ spark_version }}"
+  register: spark_version_folder
+
 - name: Change Name
   shell: mv {{ spark_path }}/{{ spark_package_name }} {{ spark_path }}/spark-{{ spark_version }}
+  when: spark_version_folder.stat.exists == False
 
 - name: Change Owner
   file:
